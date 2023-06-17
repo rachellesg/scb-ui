@@ -23,10 +23,13 @@ const RobotVacuum: React.FC = () => {
     setPosition(placedPosition)
   }
 
+  const handleReport = () => {
+    console.log(position?.x, position?.y, position?.f)
+  }
+
   return (
     <div>
       <button onClick={handlePlace}>PLACE</button>
-
       {!position ? (
         ''
       ) : (
@@ -38,9 +41,9 @@ const RobotVacuum: React.FC = () => {
             value={position?.x || 0}
             onChange={(e) => console.log(e.target.value)}
           />
+          <button onClick={handleReport}>REPORT</button>
         </div>
       )}
-
       <div className="grid">
         {(() => {
           const cells = []
