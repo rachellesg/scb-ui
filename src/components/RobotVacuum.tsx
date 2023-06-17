@@ -10,12 +10,15 @@ interface Position {
 const RobotVacuum: React.FC = () => {
   const [position, setPosition] = useState<Position | null>(null)
 
+  const [x, setX] = useState<number>(0)
+  const [y, setY] = useState<number>(0)
+
   const GRID_SIZE = 5
 
-  const handlePlace = () => {
+  const handlePlace = (x: number, y: number) => {
     const placedPosition: Position = {
-      x: 0,
-      y: 0,
+      x: x,
+      y: y,
       f: 'NORTH',
       placed: true
     }
@@ -29,19 +32,34 @@ const RobotVacuum: React.FC = () => {
 
   return (
     <div>
-      <button onClick={handlePlace}>PLACE</button>
+      <button onClick={() => handlePlace(0, 0)}>PLACE</button>
+      <button onClick={handleReport}>REPORT</button>
+
       {!position ? (
         ''
       ) : (
         <div className="actions">
-          <input
-            type="text"
-            pattern="\d*"
-            maxLength={1}
-            value={position?.x || 0}
-            onChange={(e) => console.log(e.target.value)}
-          />
-          <button onClick={handleReport}>REPORT</button>
+          <label>
+            Set X position:
+            <input
+              type="text"
+              pattern="\d*"
+              maxLength={1}
+              value={x}
+              onChange={(e) => setX(parseInt(e.target.value))}
+            />
+          </label>
+          <label>
+            Set Y position:
+            <input
+              type="text"
+              pattern="\d*"
+              maxLength={1}
+              value={y}
+              onChange={(e) => setY(parseInt(e.target.value))}
+            />
+          </label>
+          <button onClick={() => handlePlace(x, y)}>PLACE</button>
         </div>
       )}
       <div className="grid">
