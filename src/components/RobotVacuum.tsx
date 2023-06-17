@@ -9,17 +9,19 @@ interface Position {
 
 const RobotVacuum: React.FC = () => {
   const [position, setPosition] = useState<Position | null>(null)
+  const [showReport, setShowReport] = useState<boolean>(false)
 
   const [x, setX] = useState<number>(0)
   const [y, setY] = useState<number>(0)
+  const [f, setF] = useState<string>('NORTH')
 
   const GRID_SIZE = 5
 
-  const handlePlace = (x: number, y: number) => {
+  const handlePlace = (x: number, y: number, f: string) => {
     const placedPosition: Position = {
       x: x,
       y: y,
-      f: 'NORTH',
+      f: f as 'NORTH' | 'EAST' | 'SOUTH' | 'WEST',
       placed: true
     }
 
@@ -27,13 +29,12 @@ const RobotVacuum: React.FC = () => {
   }
 
   const handleReport = () => {
-    console.log(position?.x, position?.y, position?.f)
+    setShowReport(!showReport)
   }
 
   return (
     <div>
-      <button onClick={() => handlePlace(0, 0)}>PLACE</button>
-      <button onClick={handleReport}>REPORT</button>
+      <button onClick={() => handlePlace(0, 0, 'NORTH')}>PLACE</button>
 
       {!position ? (
         ''
@@ -59,7 +60,17 @@ const RobotVacuum: React.FC = () => {
               onChange={(e) => setY(parseInt(e.target.value))}
             />
           </label>
-          <button onClick={() => handlePlace(x, y)}>PLACE</button>
+          <label>
+            Set Direction:
+            <select value={f} onChange={(e) => setF(e.target.value)}>
+              <option value="NORTH">North</option>
+              <option value="EAST">EAST</option>
+              <option value="SOUTH">SOUTH</option>
+              <option value="WEST">WEST</option>
+            </select>
+          </label>
+          <button onClick={() => handlePlace(x, y, f)}>PLACE</button>
+          <button onClick={handleReport}>REPORT</button>
         </div>
       )}
       <div className="grid">
@@ -86,6 +97,9 @@ const RobotVacuum: React.FC = () => {
           return cells
         })()}
       </div>
+      {showReport && position !== null
+        ? `X: ${position?.x} Y: ${position?.y} F: ${position?.f}`
+        : ''}
     </div>
   )
 }
