@@ -5,11 +5,8 @@
 }
 
 .content {
-  width: 1140px;
-  padding: 40px;
   margin: 0 auto;
   display: flex;
-  column-gap: 60px;
 }
 
 .grid-container,
@@ -36,7 +33,6 @@
 }
 
 .robot {
-  /* background-color: #c3e6e2; */
   position: relative;
 }
 
@@ -109,7 +105,7 @@ button.primary {
 button.secondary {
   background-color: lightpink;
   box-shadow: 4px 4px hotpink;
-  margin: 0 10px 0 0;
+  margin: 0 2px 0 0;
 }
 
 button.primary:hover {
@@ -123,11 +119,10 @@ button.secondary:hover {
 }
 
 .output {
-  color: hotpink;
   /* position: fixed;
   bottom: 10px;
   right: 10px; */
-  background: lightpink;
+  background: #c3e6e2;
   padding: 10px;
   color: black;
 }

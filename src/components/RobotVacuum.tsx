@@ -148,33 +148,17 @@ const RobotVacuum: React.FC = () => {
             return cells
           })()}
         </div>
-        {position === null ? (
-          ''
+
+        {showReport && position !== null ? (
+          <div className="output">
+            Mr Roomba is currently at position{' '}
+            <strong>
+              ({position?.x}, {position?.y})
+            </strong>{' '}
+            facing <strong>{position?.f}</strong>
+          </div>
         ) : (
-          <>
-            {showReport && position !== null ? (
-              <div className="output">
-                Mr Roomba is currently at position {position?.x}, {position?.y} facing {position?.f}
-              </div>
-            ) : (
-              ''
-            )}
-            <h3>Action Buttons</h3>
-            <div className="row">
-              <button className="secondary" onClick={handleRotateLeft}>
-                ROTATE LEFT
-              </button>
-              <button className="secondary" onClick={handleRotateRight}>
-                ROTATE RIGHT
-              </button>
-              <button className="secondary" onClick={handleMove}>
-                MOVE
-              </button>
-              <button className="secondary" onClick={handleReport}>
-                REPORT
-              </button>
-            </div>
-          </>
+          ''
         )}
       </div>
       <div className="action-container">
@@ -222,6 +206,28 @@ const RobotVacuum: React.FC = () => {
           <button className="primary" onClick={() => handlePlace(x, y, f)}>
             PLACE
           </button>
+
+          {position === null ? (
+            ''
+          ) : (
+            <>
+              <h3>Action Buttons</h3>
+              <div className="row">
+                <button className="secondary" onClick={handleRotateLeft}>
+                  ROTATE LEFT
+                </button>
+                <button className="secondary" onClick={handleRotateRight}>
+                  ROTATE RIGHT
+                </button>
+                <button className="secondary" onClick={handleMove}>
+                  MOVE
+                </button>
+                <button className="secondary" onClick={handleReport}>
+                  REPORT
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
