@@ -201,11 +201,13 @@ const RobotVacuum: React.FC = () => {
         })()}
       </div>
 
-      <div className="output">
-        {showReport && position !== null
-          ? `RESULT: X: ${position?.x} Y: ${position?.y} F: ${position?.f}`
-          : ''}
-      </div>
+      {showReport && position !== null ? (
+        <div className="output">
+          Mr Roomba is currently at position {position?.x}, {position?.y} facing {position?.f}
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   )
 }
