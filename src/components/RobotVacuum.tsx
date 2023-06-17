@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Position {
   x: number | null
@@ -35,9 +35,53 @@ const RobotVacuum: React.FC = () => {
     console.log('PRESS MOVE')
   }
 
-  const handleDirection = () => {
-    console.log('change DIRECTIEON')
+  const handleRotateRight = () => {
+    switch (f) {
+      // if face north, rotate right will become
+      case 'NORTH':
+        setF('EAST')
+        break
+      case 'EAST':
+        setF('SOUTH')
+        break
+      case 'SOUTH':
+        setF('WEST')
+        break
+      case 'WEST':
+        setF('NORTH')
+        break
+      default:
+        return
+    }
   }
+
+  const handleRotateLeft = () => {
+    switch (f) {
+      case 'NORTH':
+        setF('WEST')
+        break
+      case 'EAST':
+        setF('NORTH')
+        break
+      case 'SOUTH':
+        setF('EAST')
+        break
+      case 'WEST':
+        setF('SOUTH')
+        break
+      default:
+        return
+    }
+  }
+
+  useEffect(() => {
+    setPosition((prevPosition) => {
+      if (prevPosition) {
+        return { ...prevPosition, f: f as 'NORTH' | 'EAST' | 'SOUTH' | 'WEST' }
+      }
+      return null
+    })
+  }, [f])
 
   return (
     <div>
@@ -86,6 +130,8 @@ const RobotVacuum: React.FC = () => {
           ''
         ) : (
           <div className="row">
+            <button onClick={handleRotateLeft}>ROTATE LEFT</button>
+            <button onClick={handleRotateRight}>ROTATE RIGHT</button>
             <button onClick={handleMove}>MOVE</button>
           </div>
         )}
