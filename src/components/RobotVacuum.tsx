@@ -51,7 +51,7 @@ const RobotVacuum: React.FC = () => {
           }
           break
         case 'SOUTH':
-          if (newPosition.x !== 0) {
+          if (newPosition.y !== 0) {
             newPosition.y = (newPosition.y ?? 0) - 1
             setY(newPosition.y)
           }
@@ -117,98 +117,114 @@ const RobotVacuum: React.FC = () => {
   }, [f])
 
   return (
-    <div>
-      <div className="actions">
-        <div className="row">
-          <label>
-            Set X position:
-            <input
-              type="text"
-              pattern="[0-4]"
-              maxLength={1}
-              value={x}
-              onChange={(e) => {
-                if (/^[0-4]$/.test(e.target.value)) {
-                  setX(parseInt(e.target.value))
-                }
-              }}
-            />
-          </label>
-          <label>
-            Set Y position:
-            <input
-              type="text"
-              pattern="[0-4]"
-              maxLength={1}
-              value={y}
-              onChange={(e) => {
-                if (/^[0-4]$/.test(e.target.value)) {
-                  setY(parseInt(e.target.value))
-                }
-              }}
-            />
-          </label>
-          <label>
-            Set Direction:
-            <select value={f} onChange={(e) => setF(e.target.value)}>
-              <option value="NORTH">NORTH</option>
-              <option value="EAST">EAST</option>
-              <option value="SOUTH">SOUTH</option>
-              <option value="WEST">WEST</option>
-            </select>
-          </label>
-          <button onClick={() => handlePlace(x, y, f)}>PLACE</button>
+    <>
+      <div className="grid-container">
+        <div className="grid">
+          {(() => {
+            const cells = []
+            for (let rowIndex = MAX_POSITION; rowIndex >= 0; rowIndex--) {
+              const row = []
+              for (let colIndex = 0; colIndex < GRID_SIZE; colIndex++) {
+                row.push(
+                  <div
+                    key={colIndex}
+                    className={`cell ${
+                      position?.x === colIndex && position?.y === rowIndex ? 'robot ' : ''
+                    }`}
+                    style={
+                      position?.x === colIndex && position?.y === rowIndex
+                        ? robotBorderStyle(position?.f)
+                        : undefined
+                    }
+                  ></div>
+                )
+              }
+              cells.push(
+                <div key={rowIndex} className="row">
+                  {row}
+                </div>
+              )
+            }
+            return cells
+          })()}
         </div>
         {position === null ? (
           ''
         ) : (
-          <div className="row">
-            <button onClick={handleRotateLeft}>ROTATE LEFT</button>
-            <button onClick={handleRotateRight}>ROTATE RIGHT</button>
-            <button onClick={handleMove}>MOVE</button>
-          </div>
-        )}
-        <button onClick={handleReport}>REPORT</button>
-      </div>
-
-      <div className="grid">
-        {(() => {
-          const cells = []
-          for (let rowIndex = MAX_POSITION; rowIndex >= 0; rowIndex--) {
-            const row = []
-            for (let colIndex = 0; colIndex < GRID_SIZE; colIndex++) {
-              row.push(
-                <div
-                  key={colIndex}
-                  className={`cell ${
-                    position?.x === colIndex && position?.y === rowIndex ? 'robot ' : ''
-                  }`}
-                  style={
-                    position?.x === colIndex && position?.y === rowIndex
-                      ? robotBorderStyle(position?.f)
-                      : undefined
-                  }
-                ></div>
-              )
-            }
-            cells.push(
-              <div key={rowIndex} className="row">
-                {row}
+          <>
+            {showReport && position !== null ? (
+              <div className="output">
+                Mr Roomba is currently at position {position?.x}, {position?.y} facing {position?.f}
               </div>
-            )
-          }
-          return cells
-        })()}
+            ) : (
+              ''
+            )}
+            <h3>Action Buttons</h3>
+            <div className="row">
+              <button className="secondary" onClick={handleRotateLeft}>
+                ROTATE LEFT
+              </button>
+              <button className="secondary" onClick={handleRotateRight}>
+                ROTATE RIGHT
+              </button>
+              <button className="secondary" onClick={handleMove}>
+                MOVE
+              </button>
+              <button className="secondary" onClick={handleReport}>
+                REPORT
+              </button>
+            </div>
+          </>
+        )}
       </div>
-
-      {showReport && position !== null ? (
-        <div className="output">
-          Mr Roomba is currently at position {position?.x}, {position?.y} facing {position?.f}
+      <div className="action-container">
+        <div className="actions">
+          <h2>Place Mr Roomba wherever you want!</h2>
+          <div className="row">
+            <label>
+              Set X position (0-4)
+              <input
+                type="text"
+                pattern="[0-4]"
+                maxLength={1}
+                value={x}
+                onChange={(e) => {
+                  if (/^[0-4]$/.test(e.target.value)) {
+                    setX(parseInt(e.target.value))
+                  }
+                }}
+              />
+            </label>
+            <label>
+              Set Y position (0-4)
+              <input
+                type="text"
+                pattern="[0-4]"
+                maxLength={1}
+                value={y}
+                onChange={(e) => {
+                  if (/^[0-4]$/.test(e.target.value)) {
+                    setY(parseInt(e.target.value))
+                  }
+                }}
+              />
+            </label>
+            <label>
+              Set Direction
+              <select value={f} onChange={(e) => setF(e.target.value)}>
+                <option value="NORTH">NORTH</option>
+                <option value="EAST">EAST</option>
+                <option value="SOUTH">SOUTH</option>
+                <option value="WEST">WEST</option>
+              </select>
+            </label>
+          </div>
+          <button className="primary" onClick={() => handlePlace(x, y, f)}>
+            PLACE
+          </button>
         </div>
-      ) : (
-        ''
-      )}
-    </div>
+      </div>
+    </>
   )
 }
 

@@ -1,6 +1,20 @@
 .App {
+  margin-top: 100px;
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  width: 1140px;
+  padding: 40px;
   margin: 0 auto;
-  width: 600px;
+  display: flex;
+  column-gap: 60px;
+}
+
+.grid-container,
+.action-container {
+  width: 50%;
 }
 
 .grid {
@@ -16,8 +30,8 @@
 .cell {
   width: 100px;
   height: 100px;
-  border: 1px solid #dfccce;
-  background: #f0ece3;
+  border: 1px solid #eaeaea;
+  background: #ffffff;
   box-sizing: border-box;
 }
 
@@ -48,8 +62,72 @@
 .actions .row {
   display: flex;
   margin: 10px 0;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
+  column-gap: 25px;
+}
+
+input {
+  font-family: New Hero, sans-serif;
+  padding: 6px;
+  outline: 1px solid #59646d;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 5px 0 0;
+}
+
+select {
+  padding: 6px;
+  outline: 1px solid #59646d;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 5px 0 0;
+}
+
+button {
+  font-family: New Hero, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-width: 120px;
+  outline: none;
+  border: 1px solid #333333;
+  cursor: pointer;
+}
+
+button.primary {
+  background-color: #c3e6e2;
+  box-shadow: 4px 4px #469a97;
+}
+
+button.secondary {
+  background-color: lightpink;
+  box-shadow: 4px 4px hotpink;
+  margin: 0 10px 0 0;
+}
+
+button.primary:hover {
+  transform: translateY(4px) translate(4px);
+  box-shadow: 2px 2px #469a97;
+}
+
+button.secondary:hover {
+  transform: translateY(4px) translate(4px);
+  box-shadow: 2px 2px hotpink;
 }
 
 .output {
   color: hotpink;
+  /* position: fixed;
+  bottom: 10px;
+  right: 10px; */
+  background: lightpink;
+  padding: 10px;
+  color: black;
 }

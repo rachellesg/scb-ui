@@ -1,0 +1,62 @@
+@font-face {
+  font-family: "New Order";
+  src: url("./NewOrder-Bold.woff2") format("woff2"),
+    url("./NewOrder-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "New Order";
+  src: url("./NewOrder-Light.woff2") format("woff2"),
+    url("./NewOrder-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "New Order";
+  src: url("./NewOrder-Regular.woff2") format("woff2"),
+    url("./NewOrder-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "New Order";
+  src: url("NewOrder-Medium.woff2") format("woff2"),
+    url("NewOrder-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "New Hero";
+  src: url("NewHero-Bold.woff2") format("woff2"),
+    url("NewHero-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "New Hero";
+  src: url("NewHero-RegularItalic.woff2") format("woff2"),
+    url("NewHero-RegularItalic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "New Hero";
+  src: url("NewHero-Regular.woff2") format("woff2"),
+    url("NewHero-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
