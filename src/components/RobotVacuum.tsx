@@ -4,7 +4,6 @@ interface Position {
   x: number | null
   y: number | null
   f: 'NORTH' | 'EAST' | 'SOUTH' | 'WEST'
-  placed: boolean | false
 }
 
 const RobotVacuum: React.FC = () => {
@@ -16,20 +15,28 @@ const RobotVacuum: React.FC = () => {
   const [f, setF] = useState<string>('NORTH')
 
   const GRID_SIZE = 5
+  const MAX_POSITION = GRID_SIZE - 1
 
   const handlePlace = (x: number, y: number, f: string) => {
     const placedPosition: Position = {
       x: x,
       y: y,
-      f: f as 'NORTH' | 'EAST' | 'SOUTH' | 'WEST',
-      placed: true
+      f: f as 'NORTH' | 'EAST' | 'SOUTH' | 'WEST'
     }
 
     setPosition(placedPosition)
   }
 
   const handleReport = () => {
-    setShowReport(!showReport)
+    setShowReport(true)
+  }
+
+  const handleMove = () => {
+    console.log('PRESS MOVE')
+  }
+
+  const handleDirection = () => {
+    console.log('change DIRECTIEON')
   }
 
   return (
@@ -75,21 +82,33 @@ const RobotVacuum: React.FC = () => {
           </label>
           <button onClick={() => handlePlace(x, y, f)}>PLACE</button>
         </div>
+        {position === null ? (
+          ''
+        ) : (
+          <div className="row">
+            <button onClick={handleMove}>MOVE</button>
+          </div>
+        )}
         <button onClick={handleReport}>REPORT</button>
       </div>
 
       <div className="grid">
         {(() => {
           const cells = []
-          for (let rowIndex = 0; rowIndex < GRID_SIZE; rowIndex++) {
+          for (let rowIndex = MAX_POSITION; rowIndex >= 0; rowIndex--) {
             const row = []
             for (let colIndex = 0; colIndex < GRID_SIZE; colIndex++) {
               row.push(
                 <div
                   key={colIndex}
                   className={`cell ${
-                    position?.x === colIndex && position?.y === rowIndex ? 'robot' : ''
+                    position?.x === colIndex && position?.y === rowIndex ? 'robot ' : ''
                   }`}
+                  style={
+                    position?.x === colIndex && position?.y === rowIndex
+                      ? robotBorderStyle(position?.f)
+                      : undefined
+                  }
                 ></div>
               )
             }
@@ -102,6 +121,7 @@ const RobotVacuum: React.FC = () => {
           return cells
         })()}
       </div>
+
       <div className="output">
         {showReport && position !== null
           ? `RESULT: X: ${position?.x} Y: ${position?.y} F: ${position?.f}`
@@ -112,3 +132,19 @@ const RobotVacuum: React.FC = () => {
 }
 
 export default RobotVacuum
+
+const robotBorderStyle = (direction: 'NORTH' | 'EAST' | 'SOUTH' | 'WEST') => {
+  const style = '3px solid hotpink'
+  switch (direction) {
+    case 'NORTH':
+      return { borderTop: style }
+    case 'SOUTH':
+      return { borderBottom: style }
+    case 'EAST':
+      return { borderRight: style }
+    case 'WEST':
+      return { borderLeft: style }
+    default:
+      return {}
+  }
+}
