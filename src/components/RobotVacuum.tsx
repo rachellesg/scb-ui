@@ -32,7 +32,36 @@ const RobotVacuum: React.FC = () => {
   }
 
   const handleMove = () => {
-    console.log('PRESS MOVE')
+    let newPosition: Position | null = null
+
+    if (position) {
+      newPosition = { ...position }
+
+      switch (f) {
+        case 'NORTH':
+          if (newPosition.y !== MAX_POSITION) {
+            newPosition.y = (newPosition.y ?? 0) + 1
+          }
+          break
+        case 'EAST':
+          if (newPosition.x !== MAX_POSITION) {
+            newPosition.x = (newPosition.x ?? 0) + 1
+          }
+          break
+        case 'SOUTH':
+          if (newPosition.x !== 0) {
+            newPosition.y = (newPosition.y ?? 0) - 1
+          }
+          break
+        case 'WEST':
+          if (newPosition.x !== 0) {
+            newPosition.x = (newPosition.x ?? 0) - 1
+          }
+          break
+      }
+    }
+
+    setPosition(newPosition)
   }
 
   const handleRotateRight = () => {
@@ -118,7 +147,7 @@ const RobotVacuum: React.FC = () => {
           <label>
             Set Direction:
             <select value={f} onChange={(e) => setF(e.target.value)}>
-              <option value="NORTH">North</option>
+              <option value="NORTH">NORTH</option>
               <option value="EAST">EAST</option>
               <option value="SOUTH">SOUTH</option>
               <option value="WEST">WEST</option>
