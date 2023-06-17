@@ -34,30 +34,34 @@ const RobotVacuum: React.FC = () => {
 
   return (
     <div>
-      <button onClick={() => handlePlace(0, 0, 'NORTH')}>PLACE</button>
-
-      {!position ? (
-        ''
-      ) : (
-        <div className="actions">
+      <div className="actions">
+        <div className="row">
           <label>
             Set X position:
             <input
               type="text"
-              pattern="\d*"
+              pattern="[0-4]"
               maxLength={1}
               value={x}
-              onChange={(e) => setX(parseInt(e.target.value))}
+              onChange={(e) => {
+                if (/^[0-4]$/.test(e.target.value)) {
+                  setX(parseInt(e.target.value))
+                }
+              }}
             />
           </label>
           <label>
             Set Y position:
             <input
               type="text"
-              pattern="\d*"
+              pattern="[0-4]"
               maxLength={1}
               value={y}
-              onChange={(e) => setY(parseInt(e.target.value))}
+              onChange={(e) => {
+                if (/^[0-4]$/.test(e.target.value)) {
+                  setY(parseInt(e.target.value))
+                }
+              }}
             />
           </label>
           <label>
@@ -70,9 +74,10 @@ const RobotVacuum: React.FC = () => {
             </select>
           </label>
           <button onClick={() => handlePlace(x, y, f)}>PLACE</button>
-          <button onClick={handleReport}>REPORT</button>
         </div>
-      )}
+        <button onClick={handleReport}>REPORT</button>
+      </div>
+
       <div className="grid">
         {(() => {
           const cells = []
@@ -97,9 +102,11 @@ const RobotVacuum: React.FC = () => {
           return cells
         })()}
       </div>
-      {showReport && position !== null
-        ? `X: ${position?.x} Y: ${position?.y} F: ${position?.f}`
-        : ''}
+      <div className="output">
+        {showReport && position !== null
+          ? `RESULT: X: ${position?.x} Y: ${position?.y} F: ${position?.f}`
+          : ''}
+      </div>
     </div>
   )
 }

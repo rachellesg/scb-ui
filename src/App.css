@@ -6,6 +6,7 @@
 .grid {
   display: flex;
   flex-direction: column;
+  margin: 20px auto;
 }
 
 .row {
@@ -25,4 +26,18 @@
 .actions {
   display: flex;
   margin: 10px 0;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  margin: 10px 0;
+}
+
+.output {
+  width: 100%;
+  background-color: #163d39;
+  padding: 15px;
+  color: #ffffff;
+  box-sizing: border-box;
 }
