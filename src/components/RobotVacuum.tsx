@@ -41,21 +41,25 @@ const RobotVacuum: React.FC = () => {
         case 'NORTH':
           if (newPosition.y !== MAX_POSITION) {
             newPosition.y = (newPosition.y ?? 0) + 1
+            setY(newPosition.y)
           }
           break
         case 'EAST':
           if (newPosition.x !== MAX_POSITION) {
             newPosition.x = (newPosition.x ?? 0) + 1
+            setX(newPosition.x)
           }
           break
         case 'SOUTH':
           if (newPosition.x !== 0) {
             newPosition.y = (newPosition.y ?? 0) - 1
+            setY(newPosition.y)
           }
           break
         case 'WEST':
           if (newPosition.x !== 0) {
             newPosition.x = (newPosition.x ?? 0) - 1
+            setX(newPosition.x)
           }
           break
       }
