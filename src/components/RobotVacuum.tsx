@@ -121,7 +121,6 @@ const RobotVacuum: React.FC<RobotVacuumProps> = () => {
     <>
       <div className="grid-container">
         <Grid position={robotPosition} gridSize={GRID_SIZE} />
-
         {showReport && robotPosition !== null ? <ReportOutput position={robotPosition} /> : ''}
       </div>
       <div className="action-container">
@@ -203,19 +202,3 @@ const RobotVacuum: React.FC<RobotVacuumProps> = () => {
 }
 
 export default RobotVacuum
-
-const robotBorderStyle = (direction: 'NORTH' | 'EAST' | 'SOUTH' | 'WEST') => {
-  const style = '3px solid hotpink'
-  switch (direction) {
-    case 'NORTH':
-      return { borderTop: style }
-    case 'SOUTH':
-      return { borderBottom: style }
-    case 'EAST':
-      return { borderRight: style }
-    case 'WEST':
-      return { borderLeft: style }
-    default:
-      return {}
-  }
-}
