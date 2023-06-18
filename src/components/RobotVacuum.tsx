@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
-interface Position {
-  x: number | null
-  y: number | null
-  f: 'NORTH' | 'EAST' | 'SOUTH' | 'WEST'
+import { Position } from '../types'
+import ReportOutput from './Output'
+import Grid from './Grid'
+interface RobotVacuumProps {
+  position: Position | null
 }
 
-const RobotVacuum: React.FC = () => {
-  const [position, setPosition] = useState<Position | null>(null)
+const RobotVacuum: React.FC<RobotVacuumProps> = () => {
+  const [robotPosition, setRobotPosition] = useState<Position | null>(null)
   const [showReport, setShowReport] = useState<boolean>(false)
 
   const [x, setX] = useState<number>(0)
@@ -24,7 +25,7 @@ const RobotVacuum: React.FC = () => {
       f: f as 'NORTH' | 'EAST' | 'SOUTH' | 'WEST'
     }
 
-    setPosition(placedPosition)
+    setRobotPosition(placedPosition)
   }
 
   const handleReport = () => {
@@ -34,8 +35,8 @@ const RobotVacuum: React.FC = () => {
   const handleMove = () => {
     let newPosition: Position | null = null
 
-    if (position) {
-      newPosition = { ...position }
+    if (robotPosition) {
+      newPosition = { ...robotPosition }
 
       switch (f) {
         case 'NORTH':
@@ -65,7 +66,7 @@ const RobotVacuum: React.FC = () => {
       }
     }
 
-    setPosition(newPosition)
+    setRobotPosition(newPosition)
   }
 
   const handleRotateRight = () => {
@@ -108,7 +109,7 @@ const RobotVacuum: React.FC = () => {
   }
 
   useEffect(() => {
-    setPosition((prevPosition) => {
+    setRobotPosition((prevPosition) => {
       if (prevPosition) {
         return { ...prevPosition, f: f as 'NORTH' | 'EAST' | 'SOUTH' | 'WEST' }
       }
@@ -119,47 +120,9 @@ const RobotVacuum: React.FC = () => {
   return (
     <>
       <div className="grid-container">
-        <div className="grid">
-          {(() => {
-            const cells = []
-            for (let rowIndex = MAX_POSITION; rowIndex >= 0; rowIndex--) {
-              const row = []
-              for (let colIndex = 0; colIndex < GRID_SIZE; colIndex++) {
-                row.push(
-                  <div
-                    key={colIndex}
-                    className={`cell ${
-                      position?.x === colIndex && position?.y === rowIndex ? 'robot ' : ''
-                    }`}
-                    style={
-                      position?.x === colIndex && position?.y === rowIndex
-                        ? robotBorderStyle(position?.f)
-                        : undefined
-                    }
-                  ></div>
-                )
-              }
-              cells.push(
-                <div key={rowIndex} className="row">
-                  {row}
-                </div>
-              )
-            }
-            return cells
-          })()}
-        </div>
+        <Grid position={robotPosition} gridSize={GRID_SIZE} />
 
-        {showReport && position !== null ? (
-          <div className="output">
-            Mr Roomba is currently at position{' '}
-            <strong>
-              ({position?.x}, {position?.y})
-            </strong>{' '}
-            facing <strong>{position?.f}</strong>
-          </div>
-        ) : (
-          ''
-        )}
+        {showReport && robotPosition !== null ? <ReportOutput position={robotPosition} /> : ''}
       </div>
       <div className="action-container">
         <div className="placement">
@@ -214,7 +177,7 @@ const RobotVacuum: React.FC = () => {
             PLACE
           </button>
         </div>
-        {position === null ? (
+        {robotPosition === null ? (
           ''
         ) : (
           <div className="actions">
