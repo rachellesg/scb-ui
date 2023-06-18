@@ -162,8 +162,15 @@ const RobotVacuum: React.FC = () => {
         )}
       </div>
       <div className="action-container">
-        <div className="actions">
-          <h2>Place Mr Roomba wherever you want!</h2>
+        <div className="placement">
+          <h2>Place DJ Roomba on the grid</h2>
+          <p>
+            Enter the <strong>X</strong> and <strong>Y</strong> coordinates of your desired location
+            and select the facing <strong>direction</strong> from the dropdown menu.
+            <br />
+            <br /> Once you've inputted the desired parameters, simply click the "Place" button to
+            position the robot on the specified coordinates.
+          </p>
           <div className="row">
             <label>
               Set X position (0-4)
@@ -206,29 +213,27 @@ const RobotVacuum: React.FC = () => {
           <button className="primary" onClick={() => handlePlace(x, y, f)}>
             PLACE
           </button>
-
-          {position === null ? (
-            ''
-          ) : (
-            <>
-              <h3>Action Buttons</h3>
-              <div className="row">
-                <button className="secondary" onClick={handleRotateLeft}>
-                  ROTATE LEFT
-                </button>
-                <button className="secondary" onClick={handleRotateRight}>
-                  ROTATE RIGHT
-                </button>
-                <button className="secondary" onClick={handleMove}>
-                  MOVE
-                </button>
-                <button className="secondary" onClick={handleReport}>
-                  REPORT
-                </button>
-              </div>
-            </>
-          )}
         </div>
+        {position === null ? (
+          ''
+        ) : (
+          <div className="actions">
+            <div className="row">
+              <button className="secondary" onClick={handleRotateLeft}>
+                ROTATE LEFT
+              </button>
+              <button className="secondary" onClick={handleRotateRight}>
+                ROTATE RIGHT
+              </button>
+              <button className="secondary" onClick={handleMove}>
+                MOVE
+              </button>
+              <button className="secondary" onClick={handleReport}>
+                REPORT
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )
