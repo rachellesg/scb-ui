@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Position } from '../types'
 import ReportOutput from './Output'
 import Grid from './Grid'
+
+import Button from './common/Button'
+
 interface RobotVacuumProps {
   position: Position | null
 }
@@ -71,7 +74,6 @@ const RobotVacuum: React.FC<RobotVacuumProps> = () => {
 
   const handleRotateRight = () => {
     switch (f) {
-      // if face north, rotate right will become
       case 'NORTH':
         setF('EAST')
         break
@@ -172,29 +174,20 @@ const RobotVacuum: React.FC<RobotVacuumProps> = () => {
               </select>
             </label>
           </div>
-          <button className="primary" onClick={() => handlePlace(x, y, f)}>
-            PLACE
-          </button>
+          <Button onClick={() => handlePlace(x, y, f)} variant="primary" label="PLACE" />
         </div>
-        {robotPosition === null ? (
-          ''
-        ) : (
+
+        {robotPosition !== null ? (
           <div className="actions">
             <div className="row">
-              <button className="secondary" onClick={handleRotateLeft}>
-                ROTATE LEFT
-              </button>
-              <button className="secondary" onClick={handleRotateRight}>
-                ROTATE RIGHT
-              </button>
-              <button className="secondary" onClick={handleMove}>
-                MOVE
-              </button>
-              <button className="secondary" onClick={handleReport}>
-                REPORT
-              </button>
+              <Button onClick={handleRotateLeft} variant="secondary" label="ROTATE LEFT" />
+              <Button onClick={handleRotateRight} variant="secondary" label="ROTATE RIGHT" />
+              <Button onClick={handleMove} variant="secondary" label="MOVE" />
+              <Button onClick={handleReport} variant="secondary" label="REPORT" />
             </div>
           </div>
+        ) : (
+          ''
         )}
       </div>
     </>
