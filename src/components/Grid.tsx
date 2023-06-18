@@ -35,6 +35,7 @@ const Grid: React.FC<GridProps> = ({ position, gridSize }) => {
             row.push(
               <div
                 key={colIndex}
+                data-testid={`cell-${colIndex}-${rowIndex}`}
                 className={`cell ${
                   position?.x === colIndex && position?.y === rowIndex ? 'robot ' : ''
                 }`}
